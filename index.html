@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Aniversário, meu amor ♥</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="trancado">
+
+  <!-- Corações flutuando no fundo -->
+  <canvas id="fundo" aria-hidden="true"></canvas>
+  <!-- Explosões de corações e confete -->
+  <canvas id="efeitos" aria-hidden="true"></canvas>
+
+  <!-- ============ TELA DE ABERTURA ============ -->
+  <div id="abertura" class="abertura">
+    <div class="envelope" id="envelopeAbertura" aria-hidden="true">
+      <div class="envelope__fundo"></div>
+      <div class="envelope__cartao">
+        <span>Para você</span>
+        <strong>♥</strong>
+      </div>
+      <div class="envelope__frente"></div>
+      <div class="envelope__aba"></div>
+      <div class="envelope__selo">♥</div>
+    </div>
+    <p class="abertura__texto">Preparei uma surpresa pra você…</p>
+    <button id="btnAbrir" class="botao botao--grande">Abrir surpresa</button>
+    <small class="abertura__dica">🔊 aumenta o volume</small>
+  </div>
+
+  <!-- ============ INÍCIO ============ -->
+  <header class="inicio" id="inicio">
+    <div class="inicio__fotos" id="fotosInicio"></div>
+
+    <div class="inicio__texto">
+      <p class="sobretitulo" id="sobretituloInicio">Hoje é o seu dia</p>
+      <h1>Feliz aniversário,<br><em data-nome>meu amor</em></h1>
+      <p class="digitando"><span id="digitando"></span><span class="cursor">|</span></p>
+
+      <div class="contador" id="contador" hidden>
+        <p class="contador__titulo">Juntos há</p>
+        <div class="contador__numeros">
+          <div><strong data-c="dias">0</strong><span>dias</span></div>
+          <div><strong data-c="horas">0</strong><span>horas</span></div>
+          <div><strong data-c="minutos">0</strong><span>min</span></div>
+          <div><strong data-c="segundos">0</strong><span>seg</span></div>
+        </div>
+      </div>
+    </div>
+
+    <a href="#historia" class="rolar">
+      <span>role para baixo</span>
+      <i aria-hidden="true"></i>
+    </a>
+  </header>
+
+  <main>
+    <!-- ============ LINHA DO TEMPO ============ -->
+    <section class="secao" id="historia">
+      <div class="secao__cabecalho revelar">
+        <p class="sobretitulo">Capítulo 1</p>
+        <h2>Nossa história em fotos</h2>
+        <p class="secao__sub">Toque em qualquer foto para ver de pertinho.</p>
+      </div>
+      <ol class="linha-tempo" id="linhaTempo"></ol>
+    </section>
+
+    <!-- ============ JOGO DA MEMÓRIA ============ -->
+    <section class="secao" id="jogo">
+      <div class="secao__cabecalho revelar">
+        <p class="sobretitulo">Capítulo 2</p>
+        <h2>Jogo da memória</h2>
+        <p class="secao__sub">Encontre os pares das nossas fotos.</p>
+      </div>
+      <div class="jogo__placar revelar">
+        <span>Jogadas: <strong id="jogadas">0</strong></span>
+        <span>Pares: <strong id="pares">0</strong>/<span id="totalPares">6</span></span>
+        <button class="botao botao--pequeno" id="btnReiniciar">Embaralhar</button>
+      </div>
+      <div class="jogo__tabuleiro revelar" id="tabuleiro"></div>
+      <p class="jogo__vitoria" id="vitoria" hidden></p>
+    </section>
+
+    <!-- ============ MOTIVOS ============ -->
+    <section class="secao" id="motivos">
+      <div class="secao__cabecalho revelar">
+        <p class="sobretitulo">Capítulo 3</p>
+        <h2>Motivos pelos quais eu te amo</h2>
+        <p class="secao__sub">Tire um bilhetinho do pote. Quantas vezes quiser.</p>
+      </div>
+      <div class="motivos revelar">
+        <button class="pote" id="pote" aria-label="Tirar um motivo do pote">
+          <span class="pote__tampa"></span>
+          <span class="pote__vidro">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </span>
+          <span class="pote__etiqueta">toque aqui</span>
+        </button>
+        <div class="bilhete" id="bilhete" aria-live="polite">
+          <p id="motivoTexto">Toque no pote para tirar o primeiro motivo ♥</p>
+          <small id="motivoContador"></small>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BOLO ============ -->
+    <section class="secao" id="bolo">
+      <div class="secao__cabecalho revelar">
+        <p class="sobretitulo">Capítulo 4</p>
+        <h2>Faça um pedido</h2>
+        <p class="secao__sub">Toque nas velinhas para assoprar — ou use o microfone e assopre de verdade.</p>
+      </div>
+
+      <div class="bolo revelar">
+        <div class="bolo__velas" id="velas"></div>
+        <div class="bolo__camada bolo__camada--topo"></div>
+        <div class="bolo__camada bolo__camada--meio"></div>
+        <div class="bolo__camada bolo__camada--base"></div>
+        <div class="bolo__prato"></div>
+      </div>
+
+      <div class="bolo__acoes revelar">
+        <button class="botao botao--contorno" id="btnMicrofone">🎤 Assoprar pelo microfone</button>
+        <button class="botao botao--contorno" id="btnAcender" hidden>🕯️ Acender de novo</button>
+      </div>
+      <p class="bolo__mensagem" id="mensagemBolo" aria-live="polite"></p>
+    </section>
+
+    <!-- ============ CARTA ============ -->
+    <section class="secao secao--carta bloqueada" id="carta">
+      <div class="secao__cabecalho revelar">
+        <p class="sobretitulo">Capítulo final</p>
+        <h2>Uma carta pra você</h2>
+      </div>
+
+      <p class="carta__cadeado" id="cadeado">🔒 Apague todas as velinhas do bolo para liberar a carta.</p>
+
+      <div class="carta revelar">
+        <button class="carta__envelope" id="btnCarta" aria-label="Abrir a carta" disabled>
+          <span class="carta__aba"></span>
+          <span class="carta__selo">♥</span>
+          <span class="carta__frente"></span>
+        </button>
+        <article class="carta__papel" id="papel">
+          <div id="textoCarta"></div>
+          <p class="carta__assinatura" id="assinatura"></p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>Feito com todo o meu amor, só pra você. <span class="pulsar">♥</span></p>
+  </footer>
+
+  <!-- ============ VISUALIZADOR DE FOTOS ============ -->
+  <div class="visualizador" id="visualizador" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+    <button class="visualizador__fechar" id="vzFechar" aria-label="Fechar">×</button>
+    <button class="visualizador__seta visualizador__seta--esq" id="vzAnterior" aria-label="Foto anterior">‹</button>
+    <figure class="visualizador__figura">
+      <img id="vzImagem" alt="">
+      <figcaption>
+        <span id="vzLegenda"></span>
+        <time id="vzData"></time>
+      </figcaption>
+    </figure>
+    <button class="visualizador__seta visualizador__seta--dir" id="vzProxima" aria-label="Próxima foto">›</button>
+  </div>
+
+  <!-- ============ PLAYER DE MÚSICA ============ -->
+  <div class="player" id="player">
+    <button class="player__disco" id="btnPlay" aria-label="Pausar música">
+      <img id="discoFoto" alt="">
+      <span class="player__icone" id="iconePlay" aria-hidden="true">❚❚</span>
+    </button>
+    <div class="player__info">
+      <span class="player__titulo">Incondicional</span>
+      <div class="player__barra"><span id="barraMusica"></span></div>
+    </div>
+    <input type="range" class="player__volume" id="volume" min="0" max="1" step="0.05" value="0.7" aria-label="Volume">
+  </div>
+
+  <audio id="musica" src="musica/incondicional.mp3" loop preload="auto"></audio>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
