@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Aniversário ♥</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="trancado">
+
+  <!-- Fundo: manchas de cor em movimento -->
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <!-- Pétalas e brilhos no fundo -->
+  <canvas id="fundo" aria-hidden="true"></canvas>
+  <!-- Brilhos e confete por cima -->
+  <canvas id="efeitos" aria-hidden="true"></canvas>
+  <!-- Barra de progresso da rolagem -->
+  <div class="progresso-rolagem" id="progresso" aria-hidden="true"></div>
+
+  <!-- ============ TELA DE ABERTURA ============ -->
+  <div id="abertura" class="abertura">
+    <div class="abertura__estrelas" id="estrelas" aria-hidden="true"></div>
+    <div class="envelope" id="envelopeAbertura" aria-hidden="true">
+      <div class="envelope__fundo"></div>
+      <div class="envelope__cartao">
+        <span>Para você</span>
+        <strong data-inicial>C</strong>
+      </div>
+      <div class="envelope__frente"></div>
+      <div class="envelope__aba"></div>
+      <div class="envelope__selo" data-inicial>C</div>
+    </div>
+    <p class="abertura__texto dividir">Preparei uma surpresa pra você…</p>
+    <button id="btnAbrir" class="botao botao--grande botao--claro">Abrir surpresa</button>
+    <small class="abertura__dica">🔊 aumenta o volume</small>
+  </div>
+
+  <!-- ============ INÍCIO ============ -->
+  <header class="inicio" id="inicio">
+    <div class="inicio__fotos" id="fotosInicio"></div>
+
+    <div class="inicio__texto">
+      <p class="selo-data" id="sobretituloInicio">Hoje é o seu dia</p>
+      <h1>
+        <span class="dividir">Feliz aniversário,</span>
+        <em class="nome-brilho" data-nome>meu amor</em>
+      </h1>
+      <p class="digitando"><span id="digitando"></span><span class="cursor">|</span></p>
+
+      <div class="contador" id="contador" hidden>
+        <p class="contador__titulo">Juntos há</p>
+        <div class="contador__numeros">
+          <div><strong data-c="dias">0</strong><span>dias</span></div>
+          <div><strong data-c="horas">0</strong><span>horas</span></div>
+          <div><strong data-c="minutos">0</strong><span>min</span></div>
+          <div><strong data-c="segundos">0</strong><span>seg</span></div>
+        </div>
+      </div>
+    </div>
+
+    <a href="#historia" class="rolar">
+      <span>role para baixo</span>
+      <i aria-hidden="true"></i>
+    </a>
+  </header>
+
+  <main>
+    <!-- ============ LINHA DO TEMPO ============ -->
+    <section class="secao" id="historia">
+      <div class="secao__cabecalho revelar" data-num="01">
+        <p class="sobretitulo">Capítulo 1</p>
+        <h2 class="dividir">Nossa história em fotos</h2>
+        <p class="secao__sub">Toque em qualquer foto para ver de pertinho.</p>
+      </div>
+      <div class="varais" id="varais"></div>
+    </section>
+
+    <!-- ============ JOGO DA MEMÓRIA ============ -->
+    <section class="secao" id="jogo">
+      <div class="secao__cabecalho revelar" data-num="02">
+        <p class="sobretitulo">Capítulo 2</p>
+        <h2 class="dividir">Jogo da memória</h2>
+        <p class="secao__sub">Encontre os pares das nossas fotos.</p>
+      </div>
+      <div class="jogo__placar revelar">
+        <span class="chip">Jogadas <strong id="jogadas">0</strong></span>
+        <span class="chip">Pares <strong><span id="pares">0</span>/<span id="totalPares">6</span></strong></span>
+        <button class="botao botao--pequeno" id="btnReiniciar">Embaralhar</button>
+      </div>
+      <div class="jogo__tabuleiro" id="tabuleiro"></div>
+      <p class="jogo__vitoria" id="vitoria" hidden></p>
+    </section>
+
+    <!-- ============ MOTIVOS ============ -->
+    <section class="secao" id="motivos">
+      <div class="secao__cabecalho revelar" data-num="03">
+        <p class="sobretitulo">Capítulo 3</p>
+        <h2 class="dividir">Motivos pelos quais eu te amo</h2>
+        <p class="secao__sub">Abra o pote e tire um bilhetinho. Quantas vezes quiser.</p>
+      </div>
+
+      <div class="motivos revelar">
+        <div class="pote-area">
+          <button class="pote" id="pote" aria-label="Tirar um motivo do pote">
+            <span class="pote__tampa"><span class="pote__laco"></span></span>
+            <span class="pote__vidro" id="poteVidro"></span>
+            <span class="pote__reflexo"></span>
+            <span class="pote__etiqueta">abra-me</span>
+          </button>
+          <p class="pote__dica">toque no pote ✦</p>
+        </div>
+
+        <div class="bilhete" id="bilhete" aria-live="polite">
+          <span class="bilhete__numero" id="motivoNumero">✦</span>
+          <p id="motivoTexto">Cada bilhete guarda um motivo. Toque no pote para tirar o primeiro.</p>
+          <small id="motivoContador"></small>
+        </div>
+      </div>
+
+      <div class="colecao revelar">
+        <p class="colecao__titulo">Motivos descobertos <strong id="descobertos">0</strong>/<span id="totalMotivos">0</span></p>
+        <div class="colecao__barra"><span id="barraColecao"></span></div>
+        <div class="colecao__itens" id="colecao"></div>
+      </div>
+    </section>
+
+    <!-- ============ BOLO ============ -->
+    <section class="secao" id="bolo">
+      <div class="secao__cabecalho revelar" data-num="04">
+        <p class="sobretitulo">Capítulo 4</p>
+        <h2 class="dividir">Faça um pedido</h2>
+        <p class="secao__sub">Toque nas velinhas para assoprar — ou use o microfone e assopre de verdade.</p>
+      </div>
+
+      <!-- O bolo 3D é montado pelo script -->
+      <div class="bolo-cena">
+        <div class="bolo revelar" id="bolo3d"></div>
+      </div>
+
+      <div class="bolo__acoes revelar">
+        <button class="botao botao--contorno" id="btnMicrofone">🎤 Assoprar pelo microfone</button>
+        <button class="botao botao--contorno" id="btnAcender" hidden>🕯️ Acender de novo</button>
+      </div>
+      <p class="bolo__mensagem" id="mensagemBolo" aria-live="polite"></p>
+    </section>
+
+    <!-- ============ CARTA ============ -->
+    <section class="secao secao--carta bloqueada" id="carta">
+      <div class="secao__cabecalho revelar" data-num="05">
+        <p class="sobretitulo">Capítulo final</p>
+        <h2 class="dividir">Uma carta pra você</h2>
+      </div>
+
+      <p class="carta__cadeado" id="cadeado">🔒 Apague todas as velinhas do bolo para liberar a carta.</p>
+
+      <div class="carta revelar">
+        <button class="carta__envelope" id="btnCarta" aria-label="Abrir a carta" disabled>
+          <span class="carta__fundo"></span>
+          <span class="carta__frente"></span>
+          <span class="carta__aba"></span>
+          <span class="carta__selo" data-inicial>C</span>
+        </button>
+        <article class="carta__papel" id="papel">
+          <div id="textoCarta"></div>
+          <p class="carta__assinatura" id="assinatura"></p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <p>Feito com todo o meu amor, só pra você. <span class="pulsar">♥</span></p>
+  </footer>
+
+  <!-- ============ VISUALIZADOR DE FOTOS ============ -->
+  <div class="visualizador" id="visualizador" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
+    <button class="visualizador__fechar" id="vzFechar" aria-label="Fechar">×</button>
+    <button class="visualizador__seta visualizador__seta--esq" id="vzAnterior" aria-label="Foto anterior">‹</button>
+    <figure class="visualizador__figura">
+      <img id="vzImagem" alt="">
+      <figcaption>
+        <span id="vzLegenda"></span>
+        <time id="vzData"></time>
+      </figcaption>
+    </figure>
+    <button class="visualizador__seta visualizador__seta--dir" id="vzProxima" aria-label="Próxima foto">›</button>
+  </div>
+
+  <!-- ============ PLAYER DE MÚSICA ============ -->
+  <div class="player" id="player">
+    <button class="player__botao" id="btnPlay" aria-label="Pausar música">
+      <span class="player__disco"><img id="discoFoto" alt=""></span>
+      <span class="player__icone" aria-hidden="true">
+        <svg class="icone-pausa" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1.3"/><rect x="14" y="5" width="4" height="14" rx="1.3"/></svg>
+        <svg class="icone-play" viewBox="0 0 24 24"><path d="M8 5.6v12.8a1 1 0 0 0 1.5.86l10.2-6.4a1 1 0 0 0 0-1.72L9.5 4.74A1 1 0 0 0 8 5.6z"/></svg>
+      </span>
+    </button>
+    <div class="player__info">
+      <span class="player__titulo">Incondicional <span class="player__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></span>
+      <div class="player__barra"><span id="barraMusica"></span></div>
+    </div>
+    <input type="range" class="player__volume" id="volume" min="0" max="1" step="0.05" value="0.7" aria-label="Volume">
+  </div>
+
+  <audio id="musica" src="musica/incondicional.mp3" loop preload="auto"></audio>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
